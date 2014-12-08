@@ -250,7 +250,7 @@ public class GraphAlgorithms {
     Map<Vertex<V>,Position<Vertex<V>>> positions = new ProbeHashMap<>();
 
     for (Vertex<V> v : g.vertices())
-      positions.put(v, forest.makeGroup(v));
+      positions.put(v, forest.makeCluster(v));
 
     for (Edge<Integer> e : g.edges())
       pq.insert(e.getElement(), e);

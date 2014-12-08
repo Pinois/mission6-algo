@@ -243,6 +243,11 @@ public class AdjacencyMapGraph<V,E> implements Graph<V,E> {
 
     /** Returns the position of this edge within the graph's vertex list. */
     public Position<Edge<E>> getPosition() { return pos; }
+
+	@Override
+	public Vertex[] getVertex() {
+		return endpoints;
+	}
   } //------------ end of InnerEdge class ------------
 
   /**

@@ -1,8 +1,8 @@
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import net.datastructures.AdjacencyMapGraph;
+import net.datastructures.Edge;
 import net.datastructures.Graph;
 import net.datastructures.GraphAlgorithms;
 import net.datastructures.Vertex;
@@ -10,14 +10,14 @@ import net.datastructures.Vertex;
 
 public class Main {
 	public static void main(String[] args) {
-		// création et ouverture du fichier en lecture
+		// crï¿½ation et ouverture du fichier en lecture
 		Fichier fichierR = new Fichier();
 		fichierR.ouvrir("cities_small.txt", 'R');
 		String ligneInput = null;
 		Map<String, Vertex<String>> vertices = new HashMap<String, Vertex<String>>();
 		Graph<String, Integer> graph = new AdjacencyMapGraph<String, Integer>(false);
 		
-		// Création du graph en lisant ligne par ligne le fichier
+		// Crï¿½ation du graph en lisant ligne par ligne le fichier
 		while((ligneInput = fichierR.lire()) != null){
 			String[] champs = ligneInput.split("\t");
 			if(champs.length != 3)
@@ -35,13 +35,15 @@ public class Main {
 			graph.insertEdge(u, v, Integer.parseInt(champs[2]));
 		}
 		
-		// Exemple d'utilisation de l'algorithme de dijkstra pour calculer la distance entre une ville de départ et toutes les autres
-		Vertex<String> villeDepart = vertices.get("12");
+		// Exemple d'utilisation de l'algorithme de dijkstra pour calculer la distance entre une ville de dï¿½part et toutes les autres
 		// Algorithme de Dijkstra
-		net.datastructures.Map<Vertex<String>, Integer> verticesDijkstra = GraphAlgorithms.shortestPathLengths(graph, villeDepart);
-		for (Vertex<String> villeArrivee : verticesDijkstra.keySet()) {
-			int coutVoyage = verticesDijkstra.get(villeArrivee);
-			System.out.println(villeDepart.getElement() +" ==( "+ coutVoyage +" )==> "+ villeArrivee.getElement());
+		net.datastructures.PositionalList<Edge<Integer>> modifiedGraph = GraphAlgorithms.MST(graph);
+		System.out.println("Ville 1 - Ville 2 - Poids");
+		for (Edge<Integer> edge : modifiedGraph) {
+			if(Integer.parseInt((String) edge.getVertex()[0].getElement()) < 10)
+				System.out.println("   "+edge.getVertex()[0].getElement()+"         "+edge.getVertex()[1].getElement()+"      "+edge.getElement());
+			else
+				System.out.println("   "+edge.getVertex()[0].getElement()+"        "+edge.getVertex()[1].getElement()+"      "+edge.getElement());
 		}
 	}
 }
