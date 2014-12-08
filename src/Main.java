@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) {
 		// cr�ation et ouverture du fichier en lecture
 		Fichier fichierR = new Fichier();
-		fichierR.ouvrir("cities_small.txt", 'R');
+		fichierR.ouvrir(args[0], 'R');
 		String ligneInput = null;
 		Map<String, Vertex<String>> vertices = new HashMap<String, Vertex<String>>();
 		Graph<String, Integer> graph = new AdjacencyMapGraph<String, Integer>(false);
@@ -38,12 +38,19 @@ public class Main {
 		// Exemple d'utilisation de l'algorithme de dijkstra pour calculer la distance entre une ville de d�part et toutes les autres
 		// Algorithme de Dijkstra
 		net.datastructures.PositionalList<Edge<Integer>> modifiedGraph = GraphAlgorithms.MST(graph);
+		Fichier fichierW = new Fichier();
+		fichierW.ouvrir(args[1], 'W');
 		System.out.println("Ville 1 - Ville 2 - Poids");
 		for (Edge<Integer> edge : modifiedGraph) {
-			if(Integer.parseInt((String) edge.getVertex()[0].getElement()) < 10)
+			if(Integer.parseInt((String) edge.getVertex()[0].getElement()) < 10){
+				fichierW.ecrire(edge.getVertex()[0].getElement()+"   "+edge.getVertex()[1].getElement()+"  "+edge.getElement());
 				System.out.println("   "+edge.getVertex()[0].getElement()+"         "+edge.getVertex()[1].getElement()+"      "+edge.getElement());
-			else
+			}
+			else{
 				System.out.println("   "+edge.getVertex()[0].getElement()+"        "+edge.getVertex()[1].getElement()+"      "+edge.getElement());
+				fichierW.ecrire(edge.getVertex()[0].getElement()+"  "+edge.getVertex()[1].getElement()+"  "+edge.getElement());
+			}
 		}
+		fichierW.fermer();
 	}
 }
